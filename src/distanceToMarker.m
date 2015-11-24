@@ -8,7 +8,7 @@ function [ distanceToMarker ] = distanceToMarker( inputImage, marker, sizeOfMark
 % sizeOfMarker.. Größe des Markers in cm (sollte quadratisch sein).
 
 marker = rgb2gray(imread('Assets/Marker0.jpg'));
-inputImage = rgb2gray(imread('Assets/testImg3.jpg'));
+inputImage = rgb2gray(imread('Assets/testimg4.jpg'));
 
 pointsOfMarker = detectSURFFeatures(marker);
 pointsOfImage = detectSURFFeatures(inputImage);
@@ -21,7 +21,7 @@ indexPairs = matchFeatures(features1, features2);
 matchedPoints1 = valid_points1(indexPairs(:, 1), :);
 matchedPoints2 = valid_points2(indexPairs(:, 2), :);
 
-figure; showMatchedFeatures(inputImage, marker, matchedPoints1, matchedPoints2);
+figure; showMatchedFeatures(marker, inputImage, matchedPoints1, matchedPoints2);
 
 
 % distanceToMarker = 0;
