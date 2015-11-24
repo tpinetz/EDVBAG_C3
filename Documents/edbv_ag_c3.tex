@@ -1,0 +1,73 @@
+%%Berichtvorlage für EDBV WS 2015/2016
+
+\documentclass[deutsch]{scrartcl}
+\usepackage[ngerman]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage{algorithmic}
+\usepackage{algorithm}
+\usepackage{graphicx}
+\usepackage{amsmath,amssymb}
+\usepackage{subcaption}
+\captionsetup{compatibility=false}
+\usepackage{multirow}
+\usepackage{color}
+
+\begin{document}
+
+\title{Distanz- und Geschwindigkeitsmessung} 
+\subtitle{EDBV WS 2014/2015: AG\_C3}
+
+\author{Andreas Seiwaldstätter (1025541)\\
+Elvis Dzafic (0527177)\\
+Kristina Schiechl (0726448)\\
+Salmir Delalic (0947919)\\
+Thomas Pinetz (1227026)}
+
+
+%%------------------------------------------------------
+
+\maketitle
+
+%%------------------------------------------------------
+
+\section{Ziel}
+Um Geschwindigkeitsmessungen für Hobby-Fotografen zu ermöglichen, wollen wir anhand von Bildfolgen die zurückgelegte Distanz eines Objektes in einem möglichst fixem Hintergrund mit Hilfe eines Referenzobjektes berechnen.
+
+\section{Eingabe}
+Als Input werden zwei Bilder erwartet, die mit einer fixierten Kamera und somit identischem Hintergrund ein Objekt zeigen, das eine bestimmte Distanz zurückgelegt hat.
+Weiters wird ein Marker als drittes Bild für die Pixel-cm Berechnung erwartet.
+
+\section{Ausgabe}
+Die Distanz, welche das Objekt zurückgelegt hat wird als Text ausgegeben um weitere Berechnungen durchführen zu können. Anhand der Zeit-Informationen die aus den beiden Bildern auslesbar sind, kann die Geschwindigkeit berechnet werden, mit welcher das Objekt sich in den zwei Bildern bewegt haben muss.
+
+\section{Voraussetzungen und Bedingungen}
+Die Kamera befindet sich auf einem Stativ und ist unbeweglich, sodass beide Bilder den selben Hintergrund aufweisen können.
+Das Objekt welches sich durch das Bild bewegt muss groß genug und klar erkennbar sein (größere Bälle, Personen, Tiere)
+Das Objekt bewegt sich möglichst gerade und parallel zur Kamera
+Das benutzte Muster ist klar identifizier-/erkennbar am Objekt angebracht und hat eine fixe Größe
+Das Objekt muss auf beiden Bildern abgebildet sein.
+
+\section{Methodik}
+Matching des Markers vom Bild, welches nur den Marker zeigt, in eines der Originalbilder 
+SIFT für die Erkennung der Schlüsselpunkte
+Brute force matcher für das Matching der Schlüsselpunkte
+Region Growing um den Marker pixelgenau zu erkennen und eine genaue Umrechnung zu ermöglichen.
+Connected Component Labelling um in den beiden Bildern das selbe Object zu labeln.
+
+\section{Evaluierung}
+Händisches Messen der Distanz, die das bewegte Objekt zurückgelegt hat; die Zeit zwischen den Bildern ist bekannt, dadurch kann die Geschwindigkeit händisch ausgerechnet werden. Händisch errechnetes Ergebnis und Programmergebnis werden verglichen. (vermutlich reicht es nur die gemessene Distanz und die vom Programm ermittelte Distanz zu vergleichen)
+Für welche Bilder kann ein korrektes Ergebnis erzielt werden
+Wird der Markes gefunden.
+Um wie viel weicht das Ergebnis vom korrekten Wert ab?
+
+\section{Datenbeispiel}
+\section{Zeitplan}
+
+%%------------------------------------------------------
+\bibliographystyle{plain}
+\nocite{*}
+\bibliography{edbv_lit}
+%%Bei verwendung von Latex schreibt ihr eure Referenzen in ein eigenes bib-File (siehe hier Beispiel in edbv_lit.bib). Weitere Information zum Einbinden von BibTex gibt es hier: http://www.bibtex.org/Using/de/
+%%------------------------------------------------------
+
+\end{document}
