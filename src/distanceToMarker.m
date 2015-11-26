@@ -1,4 +1,4 @@
-function [ distanceToMarker ] = distanceToMarker( inputImage, marker, sizeOfMarker )
+function [ distanceToMarker ] = distanceToMarker(inputImage, marker)
 % Diese Funktion soll die Entfernung zum Marker und somit das cm/pixel
 % Verhältnis ermitteln. Damit kann unter anderem auch die zurückgelegte
 % Distanz zur Kamera berechnet werden!
@@ -7,8 +7,7 @@ function [ distanceToMarker ] = distanceToMarker( inputImage, marker, sizeOfMark
 % marker.. Bild vom Marker
 % sizeOfMarker.. Größe des Markers in cm (sollte quadratisch sein).
 
-marker = rgb2gray(imread('Assets/Marker0.jpg'));
-inputImage = rgb2gray(imread('Assets/testimg4.jpg'));
+%inputImage = im2bw(inputImage,0.9);
 
 pointsOfMarker = detectSURFFeatures(marker);
 pointsOfImage = detectSURFFeatures(inputImage);
@@ -21,9 +20,26 @@ indexPairs = matchFeatures(features1, features2);
 matchedPoints1 = valid_points1(indexPairs(:, 1), :);
 matchedPoints2 = valid_points2(indexPairs(:, 2), :);
 
-figure; showMatchedFeatures(marker, inputImage, matchedPoints1, matchedPoints2);
+figure;
+showMatchedFeatures(marker, inputImage, matchedPoints1, ...
+    matchedPoints2, 'montage');
+title('Putatively Matched Points (Including Outliers)');
 
+[tform, inlierBoxPoints, inlierScenePoints, status] = estimateGeometricTransform(matchedPoints1, matchedPoints2, 'affine');
 
-% distanceToMarker = 0;
+boxPolygon = [1, 1;...                           % top-left
+        size(marker, 2), 1;...                 % top-right
+        size(marker, 2), size(marker, 1);... % bottom-right
+        1, size(marker, 1);...                 % bottom-left
+        1, 1];
+    
+newBoxPolygon = transformPointsForward(tform, boxPolygon);
+
+figure;
+imshow(inputImage);
+hold on;
+line(newBoxPolygon(:, 1), newBoxPolygon(:, 2), 'Color', 'r');
+title('Detected Box');
+distanceToMarker = 0;
 
 end
