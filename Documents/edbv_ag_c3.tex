@@ -55,12 +55,14 @@ Region Growing um den Marker pixelgenau zu erkennen und eine genaue Umrechnung z
 Connected Component Labelling um in den beiden Bildern das selbe Object zu labeln.
 
 \section{Evaluierung}
-Händisches Messen der Distanz, die das bewegte Objekt zurückgelegt hat; die Zeit zwischen den Bildern ist bekannt, dadurch kann die Geschwindigkeit händisch ausgerechnet werden. Händisch errechnetes Ergebnis und Programmergebnis werden verglichen. (vermutlich reicht es nur die gemessene Distanz und die vom Programm ermittelte Distanz zu vergleichen)
-Für welche Bilder kann ein korrektes Ergebnis erzielt werden
-Wird der Markes gefunden.
-Um wie viel weicht das Ergebnis vom korrekten Wert ab?
+Die zu ermittelnde Distanz, die das bewegte Objekt zurückgelegt hat, wird händisch gemessen, um diesen danach mit dem vom Programm errechneten Wert zu vergleichen. Da die Zeit zwischen den Bildern bekannt ist, und nicht erst errechnet werden muss, reicht es diesen Wert zu überprüfen.
+Für welche Bilder kann ein korrektes Ergebnis erzielt werden? Die beiden Eingangsbilder dürfen sich im Hintergrund nicht unterscheiden, und nur das Objekt, dessen zurückgelegte Distanz/Geschwindigkeit ermittelt werden soll darf sich bewegt haben. Weiters muss das Objekt sich über eine Distanz bewegt haben, sodass es sich, wenn man die beiden Bilder übereinander legt, in keinem Punkt berührt.
+Wird der Marker gefunden? Der Marker muss in einem der beiden Eingangsbilder auffindbar sein. Stimmt die händisch ermittelte Distanz nicht mit der errechneten überein, so ist durch Ausgabe der von SIFT gematchten Features zu überprüfen ob der (richtige) Marker gefunden wurde und möglicherweise ein besserer Marker zu wählen, oder ein schärferes Bild zu schießen.
+Um wie viel weicht das Ergebnis vom korrekten Wert ab? Die Abweichung lässt sich ermitteln, indem man die Differenz der gemessenen Distanz und die der errechneten ermitelt.
 
 \section{Datenbeispiel}
+
+
 \section{Zeitplan}
 
 %%------------------------------------------------------
