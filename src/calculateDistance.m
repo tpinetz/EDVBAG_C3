@@ -6,7 +6,10 @@ function [averages, averages2,dist] = calculateDistance(A, B)
     level = graythresh(C);
     bw = im2bw(C, level);
     bw = bwareaopen(bw, 50);
-    
+    SE = strel('square', 20);
+    bw = imdilate(bw,SE);
+    SE = strel('arbritrary', eye(20))
+    bw = imerode(bw,SE);
     
     averages = [0,0];
     averages2 = [0,0];
