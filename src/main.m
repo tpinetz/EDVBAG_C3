@@ -1,11 +1,11 @@
 function main()
 marker = rgb2gray(imread('Assets/Marker0.jpg'));
 inputImage = rgb2gray(imread('Assets/testImg4.JPG'));
-distanceToMarker(inputImage,marker);
+sizeOfMarker = 80;
+pixelInMM = distanceToMarker(inputImage,marker,sizeOfMarker)
 
-%A = imread('Assets/testimg1.png');
-%B = imread('Assets/testimg2.png');
-%[first, second, dist] = calculateDistance(A,B);
+
+%[first, second, dist] = calculateDistance(inputImage1,inputImage2);
 %dist
 
 end
