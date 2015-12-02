@@ -1,5 +1,5 @@
-function [averages, averages2,dist] = calculateDistance(A, B)
-    dist = 0;
+function [averages, averages2, distInPx] = calculateDistance(A, B)
+    distInPx = 0;
     
     C = (A - B) + (B - A);
     dim = size(C);
@@ -8,7 +8,7 @@ function [averages, averages2,dist] = calculateDistance(A, B)
     bw = bwareaopen(bw, 50);
     SE = strel('square', 20);
     bw = imdilate(bw,SE);
-    SE = strel('arbritrary', eye(20))
+    SE = strel('arbitrary', eye(20));
     bw = imerode(bw,SE);
     
     averages = [0,0];
@@ -40,6 +40,6 @@ function [averages, averages2,dist] = calculateDistance(A, B)
         averages2 = averages2 / ave2;
     end
     
-    dist = sqrt((averages(1) - averages2(1))^2 + (averages(2) - averages2(2))^2);
+    distInPx = sqrt((averages(1) - averages2(1))^2 + (averages(2) - averages2(2))^2);
     
 end

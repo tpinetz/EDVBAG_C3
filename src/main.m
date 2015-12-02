@@ -4,8 +4,9 @@ inputImage = rgb2gray(imread('Assets/testImg4.JPG'));
 sizeOfMarker = 80;
 pixelInMM = distanceToMarker(inputImage,marker,sizeOfMarker)
 
-
-%[first, second, dist] = calculateDistance(inputImage1,inputImage2);
-%dist
+inputImage1 = imread('Assets/testimg1.png');
+inputImage2 = imread('Assets/testimg2.png');
+[first, second, distInPx] = calculateDistance(inputImage1,inputImage2);
+dist = distInPx * pixelInMM
 
 end

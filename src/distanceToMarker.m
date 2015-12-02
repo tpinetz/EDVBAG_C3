@@ -1,11 +1,11 @@
 function [ pixelInMM ] = distanceToMarker(inputImage, marker, sizeOfMarker)
-% Diese Funktion soll die Entfernung zum Marker und somit das cm/pixel
+% Diese Funktion soll die Entfernung zum Marker und somit das mm/pixel
 % Verhältnis ermitteln. Damit kann unter anderem auch die zurückgelegte
 % Distanz zur Kamera berechnet werden!
 
 % inputImage.. Bild mit Person & Marker
 % marker.. Bild vom Marker
-% sizeOfMarker.. Größe des Markers in cm (sollte quadratisch sein).
+% sizeOfMarker.. Größe des Markers in mm (sollte quadratisch sein).
 
 %inputImage = im2bw(inputImage,0.9);
 
@@ -37,12 +37,15 @@ newBoxPolygon = transformPointsForward(tform, boxPolygon);
 figure;
 imshow(inputImage);
 hold on;
-line(newBoxPolygon(:, 1), newBoxPolygon(:, 2), 'Color', 'r');
-x = newBoxPolygon(2,1) - newBoxPolygon(1,1);
-y = newBoxPolygon(2,2) - newBoxPolygon(1,2);
-c = sqrt((x^2)+(y^2));
+X = newBoxPolygon(:, 1);
+Y = newBoxPolygon(:, 2);
+line(X, Y, 'Color', 'r');
+xLength = max(X) - min(X);
+yLength = max(Y) - min(Y);
+c = (sqrt((xLength^2)+(yLength^2)));
 
 title('Detected Box');
-pixelInMM = c/sizeOfMarker;
+%pixelInMM = c/sizeOfMarker;
+pixelInMM = sizeOfMarker/c;
 
 end
