@@ -1,8 +1,6 @@
 function [averages, averages2, distInPx] = calculateDistance(A, B)
-    distInPx = 0;
     
     C = (A - B) + (B - A);
-    dim = size(C);
     level = graythresh(C);
     bw = im2bw(C, level);
     bw = bwareaopen(bw, 50);
