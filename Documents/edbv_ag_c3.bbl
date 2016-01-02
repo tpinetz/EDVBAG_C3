@@ -1,0 +1,31 @@
+\begin{thebibliography}{1}
+
+\bibitem{bay2006surf}
+Herbert Bay, Tinne Tuytelaars, and Luc Van~Gool.
+\newblock Surf: Speeded up robust features.
+\newblock In {\em Computer vision--ECCV 2006}, pages 404--417. Springer, 2006.
+
+\bibitem{fischler1981random}
+Martin~A Fischler and Robert~C Bolles.
+\newblock Random sample consensus: a paradigm for model fitting with
+  applications to image analysis and automated cartography.
+\newblock {\em Communications of the ACM}, 24(6):381--395, 1981.
+
+\bibitem{lowe2004distinctive}
+David~G Lowe.
+\newblock Distinctive image features from scale-invariant keypoints.
+\newblock {\em International journal of computer vision}, 60(2):91--110, 2004.
+
+\bibitem{rublee2011orb}
+Ethan Rublee, Vincent Rabaud, Kurt Konolige, and Gary Bradski.
+\newblock Orb: an efficient alternative to sift or surf.
+\newblock In {\em Computer Vision (ICCV), 2011 IEEE International Conference
+  on}, pages 2564--2571. IEEE, 2011.
+
+\bibitem{suzuki2003linear}
+Kenji Suzuki, Isao Horiba, and Noboru Sugie.
+\newblock Linear-time connected-component labeling based on sequential local
+  operations.
+\newblock {\em Computer Vision and Image Understanding}, 89(1):1--23, 2003.
+
+\end{thebibliography}

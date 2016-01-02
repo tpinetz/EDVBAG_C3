@@ -91,13 +91,17 @@ Unser Workflow setzt sich wie folgt zusammen. Zuerst muss die Distanz zur Kamera
 
 Danach brauchen wir 2 Bilder von einem Objekt mit statischen Hintergrund um die Geschwindigkeits- beziehungsweise Distanzmessung zu vollziehen, wobei eins der Bilder auch den Marker enthalten kann um die zuvor erwähnte Distanzmessung zu vollziehen.
 
-Diese Bilder werden mit einem Threshold zu Schwarzweißbilder verarbeitet und mit einer Kombination von Morphologischen Operationen und Connected Component Labelling wird eine Bounding Box um die 2 Objekte gelegt um den Mittelpunkt zu berechnen und danach die Distanz auszurechnen.
+Diese Bilder werden mit einem Threshold zu Schwarzweißbilder verarbeitet und mit einer Kombination von Morphologischen Operationen und Connected Component Labelling ~\cite{suzuki2003linear} wird eine Bounding Box um die 2 Objekte gelegt um den Mittelpunkt zu berechnen und danach die Distanz auszurechnen.
 
 Der Marker wird von uns mittels \textbf{Speeded up robust features (SURF)} ~\cite{bay2006surf} gefunden. Wir haben an dieser Stelle auch andere Möglichkeiten probiert. In die engere Auswahl sind auch \textbf{Scale Invariant Feature Transform} ~\cite{lowe2004distinctive} und \textbf{Oriented FAST and Rotated BRIEF (ORB)} ~\cite{rublee2011orb}. Auf Grund des nativen Supports und da wir die Methode nicht selbst implementiert haben, haben wir uns dann für SURF entschieden. 
 
 Auf Grund der gefundenen Keypoints wird dann dann die Bounding Box mittels \textbf{random sample consensus (RANSAC)} ~\cite{fischler1981random} erstellt. Die Pixelgröße dieser Bounding Box wird dann benutzt um von der bekannten Größe des Markers auf die Pixeldistanz umzurechnen.
 
+Auch für die Pixeldistanzberechnung der beiden Objekten aus den Bildern haben wir verschiedene Ansätze. Jeder unserer Ansätze beginnt damit, dass wir die Bilder voneinander abziehen und dann über einen Thresholdingalgorithmus ein Schwarzweisbild zu erstellen. In unserem Ansatz haben wir dann eine Kombination aus Morphologischen Operationen und Connected Component Labeling genommen um die 2 Regionen zu finden, welche zu den zwei Objekten gehören. Dieser Ansatz hat den Vorteil, dass auch wenn sich der Hintergrund ein bisschen ändert kann man mit den Morphologischen Operation darauf reagieren. Daher, wenn das Connected Component Labeling mehr als 2 Components erkennt, kann man Erosion anwenden um zusätzliche Components zu ignorieren. Auch kann man damit relativ gut beide Objekte voneinander trennen. Für diesen Zweck haben wir ein Connected Component Labeling und die Morphologischen Operationen implementiert.
 
+Ein anderer Ansatz war bei der Mitte aller Punkte eine vertikale Linie durchzulegen und dann aus den resultierenden zwei Bildern den Mittelpunkt der Objekte zu berechnen. Das Problem dabei, war dass die Objekte eventuell nicht mit einer vertikalen linie getrennt werden können. Auch verändert jede Änderung im Hintergrund den Mittelwert und verfälscht dadurch die Messung. Auch kann es zu Veränderungem im zum messenden Objekt kommen. Zum Beispiel können die Hände bei einem Menschen einmal ausgestreckt sein und ein anderes mal nicht. Dadurch würde sich der Mittelwert verändern und auch die Segmentierung kann dadurch falsch werden.
+
+Nachdem man die beiden Mittelpunkte gefunden hat kann man sich mit trivialer Geometrie die euklidische Pixeldistanz ausrechnen und mit dem Faktor multiplizieren, welchen man im Ersten Schritt ausgerechnet hat. Dividiert durch die Zeit ergibt dann die Durchschnittsgeschwindigkeit.
 
 
 \section{Implementierung}
@@ -122,6 +126,14 @@ Diskussion der Evaluierungsfragen: Beantwortung der Fragen, Diskussion anhand vo
 (max. 1 Seite)\\
 Hier fasst ihr Ergebnisse eures Projekt zusammen:\\
 Welche Schlussfolgerung lässt sich ziehen? Gibt es offene Probleme? Wie lässt sich eure Lösung noch verbessern? etc.
+
+\begin{description}
+	\item[Offene Probleme] ~\par
+	\begin{itemize}
+		\item Zeitliche Genauigkeit: Leider haben wir bei unseren Bildern die Zeit nur auf Sekundengenauigkeit auslesen können. Für die Radarfalle wären aber auch die Millisekunden entscheidend gewesen. Leider haben wir keine Lösung für dieses Problem gefunden, als die Zeit zwischen dem Abdrücken der Fotos manuell einzugeben oder vorher schon festzulegen.
+	\end{itemize}
+\end{description}
+
 %%------------------------------------------------------
 
 
