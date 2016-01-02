@@ -49,7 +49,7 @@ Das Objekt muss auf beiden Bildern abgebildet sein.
 
 \section{Methodik}
 Matching des Markers vom Bild, welches nur den Marker zeigt, in eines der Originalbilder 
-SIFT für die Erkennung der Schlüsselpunkte
+SURF für die Erkennung der Schlüsselpunkte
 Brute force matcher für das Matching der Schlüsselpunkte
 Region Growing um den Marker pixelgenau zu erkennen und eine genaue Umrechnung zu ermöglichen.
 Connected Component Labelling um in den beiden Bildern das selbe Object zu labeln.
@@ -66,9 +66,68 @@ Um wie viel weicht das Ergebnis vom korrekten Wert ab? Die Abweichung lässt sic
 \section{Zeitplan}
 
 %%------------------------------------------------------
+
+%%------------------------------------------------------
+\section{Arbeitsteilung}
+
+\begin{center}
+	\begin{tabular}{ |l | c | }
+		\hline
+		Name & Tätigkeiten\\
+		\hline
+		Thomas Pinetz & CCL Implementierung, Pixeldistanz Prototyp, Bericht Sektion Methodik \\
+		\hline
+		Vorname2 Nachname2 & Matlab-Funktion C, Bericht Abschnitt D...\\
+		\hline
+	\end{tabular}
+\end{center}
+
+%%------------------------------------------------------
+
+%%------------------------------------------------------
+\section{Methodik}
+
+Unser Workflow setzt sich wie folgt zusammen. Zuerst muss die Distanz zur Kamera erkannt werden. Dafür brauchen wir einen Marker, von welchem wir die tatsächliche Größe in der realen Welt kennen. Dann muss ein Foto von der richtigen Distanz gemacht werden. Dadurch können wir von der Größe des Markers auf die Größe der Objekte schließen. 
+
+Danach brauchen wir 2 Bilder von einem Objekt mit statischen Hintergrund um die Geschwindigkeits- beziehungsweise Distanzmessung zu vollziehen, wobei eins der Bilder auch den Marker enthalten kann um die zuvor erwähnte Distanzmessung zu vollziehen.
+
+Diese Bilder werden mit einem Threshold zu Schwarzweißbilder verarbeitet und mit einer Kombination von Morphologischen Operationen und Connected Component Labelling wird eine Bounding Box um die 2 Objekte gelegt um den Mittelpunkt zu berechnen und danach die Distanz auszurechnen.
+
+Der Marker wird von uns mittels \textbf{Speeded up robust features (SURF)} ~\cite{bay2006surf} gefunden. Wir haben an dieser Stelle auch andere Möglichkeiten probiert. In die engere Auswahl sind auch \textbf{Scale Invariant Feature Transform} ~\cite{lowe2004distinctive} und \textbf{Oriented FAST and Rotated BRIEF (ORB)} ~\cite{rublee2011orb}. Auf Grund des nativen Supports und da wir die Methode nicht selbst implementiert haben, haben wir uns dann für SURF entschieden. 
+
+Auf Grund der gefundenen Keypoints wird dann dann die Bounding Box mittels \textbf{random sample consensus (RANSAC)} ~\cite{fischler1981random} erstellt. Die Pixelgröße dieser Bounding Box wird dann benutzt um von der bekannten Größe des Markers auf die Pixeldistanz umzurechnen.
+
+
+
+
+\section{Implementierung}
+(1-X Seiten)\\
+Hier gebt ihr einen Überblick über eure Implementierung:\\
+Wie habt ihr die im vorhergehenden Abschnitt vorgestellte Methodik praktisch umgesetzt? Wie werden die einzelnen Methoden kombiniert (zB. Implementierungspipeline)?\\
+Hier ist Platz für Implementierungsdetails wie zB. gewählte Parameter. \\
+Wie startet der User das Programm? Welche Parameter hat der User zu setzen?\\
+Auch in diesem Abschnitt können Referenzen und Zitate notwendig sein.\\
+%%------------------------------------------------------
+
+%%------------------------------------------------------
+\section{Evaluierung}
+(2-X Seiten)\\
+Hier stellt ihr euren Datensatz vor und beantwortet Evaluierungsfragen:\\
+z.B. Fakten zum Datensatz: Anzahl der Bilder, Größe der Bilder, Quelle des Datensatzes (falls selbst aufgenommen: Aufnahmegerät, Einstellungen,... / falls nicht selbst erstellt: Datenbank vostellen...)\\
+Diskussion der Evaluierungsfragen: Beantwortung der Fragen, Diskussion anhand von Beispielen, Diskussion von Grenzfällen: für welche Bilder funktioniert die Implementierung, für welche nicht? Worin unterscheiden sich diese Bilder? etc.
+%%------------------------------------------------------
+
+%%------------------------------------------------------
+\section{Schlusswort}
+(max. 1 Seite)\\
+Hier fasst ihr Ergebnisse eures Projekt zusammen:\\
+Welche Schlussfolgerung lässt sich ziehen? Gibt es offene Probleme? Wie lässt sich eure Lösung noch verbessern? etc.
+%%------------------------------------------------------
+
+
 \bibliographystyle{plain}
 \nocite{*}
-\bibliography{edbv_lit}
+\bibliography{edvb_lit}
 %%Bei verwendung von Latex schreibt ihr eure Referenzen in ein eigenes bib-File (siehe hier Beispiel in edbv_lit.bib). Weitere Information zum Einbinden von BibTex gibt es hier: http://www.bibtex.org/Using/de/
 %%------------------------------------------------------
 
