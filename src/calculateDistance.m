@@ -4,16 +4,17 @@ C = (A - B) + (B - A);
 level = graythresh(C);
 
 bw = im2bw(C, level);
+%bw = myAreaOpen(bw, 50);
 SE = strel('square', 15);
 [bw2] = dilation(bw,SE);
 [bw3] = erosion(bw2,SE);
 bw = imdilate(bw,SE);
 bw = imerode(bw,SE);
 
-figure('Name', 'myDilation'); imshow(bw3);
-size(bw3)
-figure('Name', 'matlabDilation'); imshow(bw);
-size(bw)
+%figure('Name', 'myDilation'); imshow(bw3);
+%size(bw3)
+%figure('Name', 'matlabDilation'); imshow(bw);
+%size(bw)
 
 averages = [0,0];
 averages2 = [0,0];
