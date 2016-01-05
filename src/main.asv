@@ -1,0 +1,14 @@
+function main()
+marker = rgb2gray(imread('Assets/i1.jpg'));
+inputImage = rgb2gray(imread('Assets/b2.jpg'));
+sizeOfMarker = 250;
+for i = 1:5
+    pixelInMM = distanceToMarker(inputImage,marker,sizeOfMarker)
+    if pixelInMM 
+    
+inputImage1 = imread('Assets/moveB2.jpg');
+inputImage2 = imread('Assets/moveB3.jpg');
+%[first, second, distInPx] = calculateDistance(inputImage1,inputImage2);
+%dist = distInPx * pixelInMM
+
+end

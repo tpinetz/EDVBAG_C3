@@ -7,7 +7,10 @@ function [ pixelInMM ] = distanceToMarker(inputImage, marker, sizeOfMarker)
 % marker.. Bild vom Marker
 % sizeOfMarker.. Größe des Markers in mm (sollte quadratisch sein).
 
-%inputImage = im2bw(inputImage,0.9);
+
+%level = graythresh(marker);
+%inputImage = im2bw(inputImage,level);
+%marker = im2bw(marker,level);
 
 pointsOfMarker = detectSURFFeatures(marker);
 pointsOfImage = detectSURFFeatures(inputImage);
@@ -22,7 +25,7 @@ matchedPoints2 = valid_points2(indexPairs(:, 2), :);
 
 figure;
 showMatchedFeatures(marker, inputImage, matchedPoints1, ...
-    matchedPoints2, 'montage');
+    matchedPoints2,'montage');
 title('Putatively Matched Points (Including Outliers)');
 
 [tform, inlierBoxPoints, inlierScenePoints, status] = estimateGeometricTransform(matchedPoints1, matchedPoints2, 'affine');
@@ -43,6 +46,7 @@ line(X, Y, 'Color', 'r');
 xLength = max(X) - min(X);
 yLength = max(Y) - min(Y);
 c = (sqrt((xLength^2)+(yLength^2)));
+c
 
 title('Detected Box');
 %pixelInMM = c/sizeOfMarker;
