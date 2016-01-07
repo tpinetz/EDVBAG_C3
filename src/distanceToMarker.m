@@ -46,7 +46,6 @@ line(X, Y, 'Color', 'r');
 xLength = max(X) - min(X);
 yLength = max(Y) - min(Y);
 c = (sqrt((xLength^2)+(yLength^2)));
-c
 
 title('Detected Box');
 %pixelInMM = c/sizeOfMarker;

@@ -7,10 +7,9 @@ bw = im2bw(C, level);
 SE = strel('square', 101);
 [bw2] = dilation(bw,SE);
 [bw3] = erosion(bw2,SE);
-bw3 = myGetBi   ggestComponents(bw3);
+bw3 = myGetBiggestComponents(bw3);
 
 figure('Name', 'myDilation'); imshow(bw3);
-size(bw3)
 %figure('Name', 'matlabDilation'); imshow(bw);
 %size(bw)
 
@@ -36,8 +35,6 @@ for idx = 1:size(cc{1},1)
     
     miny = min(point(2), miny);
     maxy = max(point(2), maxy);
-    averages = averages + [point(1), point(2)];
-    ave = ave + 1;
 end
 
 averages = [(maxx - minx) / 2 + minx, (maxy - miny) / 2 + miny];
@@ -57,20 +54,10 @@ for idx = 1:size(cc{2},1)
     
     miny = min(point(2), miny);
     maxy = max(point(2), maxy);
-    averages2 = averages2 + [point(1), point(2)];
-    ave2 = ave2 + 1;
 end
 
 
 averages2 = [(maxx - minx) / 2 + minx, (maxy - miny) / 2 + miny];
-
-if ave > 0
-   % averages = averages / ave;
-end
-
-if ave2 > 0
-    %averages2 = averages2 / ave2;
-end
 
 distInPx = sqrt((averages(1) - averages2(1))^2 + (averages(2) - averages2(2))^2);
 end
