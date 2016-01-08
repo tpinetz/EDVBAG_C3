@@ -13,5 +13,14 @@ Das ist die eigentliche Methode, welche benutzt wird um das Framework anzusteuer
 * strelType.. Die Art des Strukturelement (	'rectangle', 'square', 'diamond', ...)
 * inputImageString.. Ort des Bildes mit Marker zur Berechnung der Distanz.
 * image1String.. Ort des ersten Bildes der Geschwindigkeitsmessung.
-* sizeOfMarker.. Ort des zweiten Bildes der Geschwindigkeitsmesssung.
+* image2String.. Ort des zweiten Bildes der Geschwindigkeitsmesssung.
 
+### Aufgerufene Methoden von Radarfalle
+
+* distanceToMarker(inputImage,marker,markerSize)
+  * Speeded Up Robust Features (SURF)
+  * Random Sample Consensus (RANSAC)
+* calculateDistance(image1,image2,strelType)
+  * Threshold by Otsu
+  * Closing
+  * Connected Component Labelling (CCL)
