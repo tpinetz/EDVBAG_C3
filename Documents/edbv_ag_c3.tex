@@ -75,7 +75,7 @@ Um wie viel weicht das Ergebnis vom korrekten Wert ab? Die Abweichung lässt sic
 		\hline
 		Name & Tätigkeiten\\
 		\hline
-		Thomas Pinetz & CCL Implementierung, Pixeldistanz Prototyp, Bericht Sektion Methodik \\
+		Thomas Pinetz & CCL Implementierung, Threshold von Otsu, Pixeldistanz Prototyp, Bericht Sektion Methodik \\
 		\hline
 		Vorname2 Nachname2 & Matlab-Funktion C, Bericht Abschnitt D...\\
 		\hline
@@ -97,7 +97,7 @@ Der Marker wird von uns mittels \textbf{Speeded up robust features (SURF)} ~\cit
 
 Auf Grund der gefundenen Keypoints wird dann dann die Bounding Box mittels \textbf{random sample consensus (RANSAC)} ~\cite{fischler1981random} erstellt. Die Pixelgröße dieser Bounding Box wird dann benutzt um von der bekannten Größe des Markers auf die Pixeldistanz umzurechnen.
 
-Auch für die Pixeldistanzberechnung der beiden Objekten aus den Bildern haben wir verschiedene Ansätze. Jeder unserer Ansätze beginnt damit, dass wir die Bilder voneinander abziehen und dann über einen Thresholdingalgorithmus ein Schwarzweisbild zu erstellen. In unserem Ansatz haben wir dann eine Kombination aus Morphologischen Operationen und Connected Component Labeling genommen um die 2 Regionen zu finden, welche zu den zwei Objekten gehören. Dieser Ansatz hat den Vorteil, dass auch wenn sich der Hintergrund ein bisschen ändert kann man mit den Morphologischen Operation darauf reagieren. Daher, wenn das Connected Component Labeling mehr als 2 Components erkennt, kann man Erosion anwenden um zusätzliche Components zu ignorieren. Auch kann man damit relativ gut beide Objekte voneinander trennen. Für diesen Zweck haben wir ein Connected Component Labeling und die Morphologischen Operationen implementiert.
+Auch für die Pixeldistanzberechnung der beiden Objekten aus den Bildern haben wir verschiedene Ansätze. Jeder unserer Ansätze beginnt damit, dass wir die Bilder voneinander abziehen und dann über einen Thresholdingalgorithmus ein Schwarzweisbild zu erstellen. Dabei haben wir das Problem, dass man den Schwellwert richtig bestimmen muss. Dafür haben wir den Threshold von Otsu implementiert ~\cite{otsu1975threshold}. In unserem Ansatz haben wir dann eine Kombination aus Morphologischen Operationen und Connected Component Labeling genommen um die 2 Regionen zu finden, welche zu den zwei Objekten gehören. Dieser Ansatz hat den Vorteil, dass auch wenn sich der Hintergrund ein bisschen ändert kann man mit den Morphologischen Operation darauf reagieren. Daher, wenn das Connected Component Labeling mehr als 2 Components erkennt, kann man Erosion anwenden um zusätzliche Components zu ignorieren. Auch kann man damit relativ gut beide Objekte voneinander trennen. Für diesen Zweck haben wir ein Connected Component Labeling und die Morphologischen Operationen implementiert.
 
 Ein anderer Ansatz war bei der Mitte aller Punkte eine vertikale Linie durchzulegen und dann aus den resultierenden zwei Bildern den Mittelpunkt der Objekte zu berechnen. Das Problem dabei, war dass die Objekte eventuell nicht mit einer vertikalen linie getrennt werden können. Auch verändert jede Änderung im Hintergrund den Mittelwert und verfälscht dadurch die Messung. Auch kann es zu Veränderungem im zum messenden Objekt kommen. Zum Beispiel können die Hände bei einem Menschen einmal ausgestreckt sein und ein anderes mal nicht. Dadurch würde sich der Mittelwert verändern und auch die Segmentierung kann dadurch falsch werden.
 
@@ -123,16 +123,17 @@ Diskussion der Evaluierungsfragen: Beantwortung der Fragen, Diskussion anhand vo
 
 %%------------------------------------------------------
 \section{Schlusswort}
-(max. 1 Seite)\\
-Hier fasst ihr Ergebnisse eures Projekt zusammen:\\
-Welche Schlussfolgerung lässt sich ziehen? Gibt es offene Probleme? Wie lässt sich eure Lösung noch verbessern? etc.
+Zusammenfassend ist zu sagen, dass wir in mehr Probleme geraten sind als erwartet. Zuerst hat uns die Markerdetektion Probleme bereitet, da wir einen Marker verwendet haben, der nicht genug markante Punkte besessen hat. Dann hatten wir Probleme mit der Auflösung, da wir nicht genügend gute Punkte finden konnten und das hat sich durch die gesamte Gruppenarbeit so weiter gezogen. Hier eine Liste der immer noch offenen Probleme:    
 
 \begin{description}
 	\item[Offene Probleme] ~\par
 	\begin{itemize}
 		\item Zeitliche Genauigkeit: Leider haben wir bei unseren Bildern die Zeit nur auf Sekundengenauigkeit auslesen können. Für die Radarfalle wären aber auch die Millisekunden entscheidend gewesen. Leider haben wir keine Lösung für dieses Problem gefunden, als die Zeit zwischen dem Abdrücken der Fotos manuell einzugeben oder vorher schon festzulegen.
+		\item RANSAC Genauigkeit: Wenn nicht genügend gute SURF features gefunden, kann RANSAC die Box entweder nicht oder nur sehr schlecht zeichnen. Dadurch wird die Geschwindigkeit natürlich stark beeinträchtigt. Auch wenn hinreichend gute SURF features gefunden werden, können die geometrischen Elemente meist nicht zu $100\%$ beschrieben werden. Daher wird die Box leider nicht genau gezeichnet. Dadurch ist der Marker im Bild größer als er eigentlich sein sollte und die Distanz- beziehungsweise Geschwindigkeitsberechnung wird dadurch leicht verzerrt.
 	\end{itemize}
 \end{description}
+
+Wir waren daher eher überrascht, dass die Methoden nicht so gut funktioniert haben wie zu Beginn der Lehrveranstaltung erhofft. Dennoch hat es uns viel Spaß gemacht die Parameter zu verändern und dann zu schauen wie sich dass auf die Zusammenhänge im Programm auswirkt.  
 
 %%------------------------------------------------------
 
