@@ -14,9 +14,9 @@ for r = 1:dim(1)
         end
         if bw(r,c) == 1
             nhood = getnhood(SE);
-            outImg(x+r:r+(2*x-1),y+c:c+(2*y-1)) = outImg(x+r:r+(2*x-1),y+c:c+(2*y-1)) | nhood;
+            outImg(x+r:r+(2*x-1),y+c:c+(2*y-1)) = nhood;
         end
     end
 end
-output_args = outImg(x+1:dim(1)+x,y+1:dim(2)+y);
+output_args = outImg(:dim(1)+x,y:dim(2)+y);
 end

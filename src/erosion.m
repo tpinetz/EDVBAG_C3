@@ -7,18 +7,18 @@ outImg = zeros(size(bw));
 x = size(SEheight,1);
 y = size(SEheight,2);
 
-tempImg = ones(dim(1)+x-1,dim(2)+y-1);
-tempImg((x+1)/2:dim(1)+(x-1)/2,(y+1)/2:dim(2)+(y-1)/2) = bw;
+tempImg = ones(dim(1)+2*x,dim(2)+2*y);
+tempImg(x+1:dim(1)+x,y+1:dim(2) + y) = bw;
 
-for r = 1+(x-1)/2:dim(1)+(x-1)/2
-    for c = 1+(y-1)/2:dim(2)+(y-1)/2
+for r = x+1:dim(1)+x
+    for c = y+1:dim(2)+y
         if tempImg(r,c) == 0
             continue;
         end
         if tempImg(r,c) == 1
             nhood = getnhood(SE);
-            if tempImg(r-(x-1)/2:r+(x-1)/2,c-(y-1)/2:c+(y-1)/2) == nhood
-                outImg(r-(x-1)/2,c-(y-1)/2) = 1;
+            if tempImg(r-floor(x/2):r+floor((x-1)/2),c-floor(y/2):c+floor((y-1)/2)) >= nhood
+                outImg(r-x,c-y) = 1;    
             end
         end
     end

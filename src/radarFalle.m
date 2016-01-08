@@ -1,4 +1,4 @@
-function [dist, speed] = radarFalle(markerString, markerSize, inputImageString, image1String ,image2String)
+function [dist, speed] = radarFalle(markerString, markerSize, strelType, inputImageString, image1String ,image2String)
 % Diese Funktion ist unsere Abgabe. Als Input wird der Marker die Distanz
 % und zwei Bilder erwartet. Daraus wird dann die Geschwindigkeit und die
 % Distanz berechnet. 
@@ -22,10 +22,9 @@ function [dist, speed] = radarFalle(markerString, markerSize, inputImageString, 
 
     pixelInMM = distanceToMarker(inputImage,marker,sizeOfMarker);
 
-
     inputImage1 = imread(image1String);
     inputImage2 = imread(image2String);
-    [first, second, distInPx] = calculateDistance(inputImage1,inputImage2);
+    [first, second, distInPx] = calculateDistance(inputImage1,inputImage2,strelType);
     dist = (distInPx * pixelInMM) / 1000;
 
     deltaTime = max(abs(extractTime(image1String) - extractTime(image2String)), 0.5);
