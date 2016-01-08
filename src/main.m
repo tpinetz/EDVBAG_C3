@@ -1,6 +1,6 @@
 function main()
 
-    markerString = 'Assets/i1.jpg';
+    markerString = 'Assets/Marker/i1.jpg';
     inputImageString = 'Assets/x1.jpg';
 
     image1String = 'Assets/x2.jpg';

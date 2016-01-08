@@ -150,11 +150,6 @@ Auch in diesem Abschnitt können Referenzen und Zitate notwendig sein.\\
 
 %%------------------------------------------------------
 \section{Evaluierung}
-(2-X Seiten)\\
-Hier stellt ihr euren Datensatz vor und beantwortet Evaluierungsfragen:\\
-z.B. Fakten zum Datensatz: Anzahl der Bilder, Größe der Bilder, Quelle des Datensatzes (falls selbst aufgenommen: Aufnahmegerät, Einstellungen,... / falls nicht selbst erstellt: Datenbank vostellen...)\\
-Diskussion der Evaluierungsfragen: Beantwortung der Fragen, Diskussion anhand von Beispielen, Diskussion von Grenzfällen: für welche Bilder funktioniert die Implementierung, für welche nicht? Worin unterscheiden sich diese Bilder? etc.
-
 Unser Datensatz setzt sich sowohl aus Testbildern zusammen, für die unsere Radarfalle funktioniert, als auch aus solchen, bei denen dies nicht der Fall ist. Sämtliche Bilder (bis auf wenige Ausnahmen), die sich im Datensatz befinden, wurden selbst geschossen, mit einer SONY Kamera, Modell DSC-HX200V, auf einem Stativ. Das Benützen eines Stativs ist wichtig, um Verwackelungen, die eine falsche Identifizierung des bewegten Objektes zur Folge haben, zu vermeiden.
 
 Der erste Datensatz, für den die Radarfalle auch funktioniert, setzt sich aus folgenden Bildern zusammen: 
@@ -173,14 +168,37 @@ Der zweite Datensatz, für den die Radarfalle ein richtiges Ergebnis zurücklief
 \end{itemize}
 Der errechnete, zurückgelieferte Wert entspricht einer Distanz von 1,25m was der tatsächlichen Distanz erneut sehr nahe kommt (Vergleich: etwas mehr als 4 Fliesen á 30cm liegen zwischen Anfangs- und Endposition). Die Bilder haben eine Größe von 5mp, was, im Vergleich zu Datensatz1, zu einer merkbar längeren Berechnungszeit führt. Es wird auch ein korrektes Ergebnis zurückgeliefert, wählt man f1b.jpg als Bild in dem der Marker gesucht wird, wobei kleinere Schwankungen des Ergebnisses immer möglich sind, da der verwendete RANSEC Algorithmus zur Berechnung der Bounding Box des Markers eine Funktion ist, die mit zufälligen Werten arbeitet.
 
+Der folgende Datensatz funktioniert zwar, benötigt jedoch viel Zeit zur Berechnung, da die Eingabebilder eine Größe von 8mp haben. Wir empfehlen daher nur Bilder der Größe 2mp zu verwenden:
+\begin{itemize}
+	\item ../Assets/Marker/Marker.png für den Marker (die reelle Größe dieses Markers ist 80x80mm, also sqrt(80$^2$ + 80$^2$)), 
+	\item ../Assets/move2.jpg als Bild in dem der Marker gesucht wird
+	\item ../Assets/move1.jpg und ../Assets/move2.jpg als Bilder, in denen die Distanz gemessen wird
+\end{itemize}
+Das zurückgelieferte Ergebnis ist 1,42m, was der tatsächlichen Distanz sehr nahe kommt (etwas weniger als 5 Fliesen).
+
 Der folgende Datensatz funktioniert nicht, da der Marker nicht gefunden werden kann (weil er keinen weißen Hintergrund hat):
 \begin{itemize}
 	\item ../Assets/Marker/Marker.png für den Marker (die reelle Größe dieses Markers ist 80x80mm, also sqrt(80$^2$ + 80$^2$)), 
 	\item ../Assets/2mpNoStativ1.jpg als Bild in dem der Marker gesucht wird
-	\item ../Assets/2mpNoStativ1.jpg und ../Assets/2mpNoStativ1.jpg als Bilder, in denen die Distanz gemessen wird
+	\item ../Assets/2mpNoStativ1.jpg und ../Assets/2mpNoStativ2.jpg als Bilder, in denen die Distanz gemessen wird
 \end{itemize}
 Das zurückgelieferte Ergebnis ist Inf, sowohl bei der Distanz, als auch bei der Geschwindigkeit, da die Größe in Pixel des Markers in 2mpNoStativ nicht ermittelt werden konnte. Dieser Datensatz soll illustrieren, wie wichtig es ist, den Marker deutlich und für das Programm auffindbar im Bild zu platzieren. Erreicht wird dies, indem der gewählte Marker eine Struktur hat, die nicht im Bild vorkommt, und sich deutlich vom Hintergrund abhebt.
 Dieser Datensatz ist die oben bereits erwähnte Ausnahme, die nicht mit der SONY Kamera geschossen wurde, sondern mit einem iPhone 4S.
+
+Zu den Evaluierungsfragen:
+
+%%------------------------------------------------------
+\begin{itemize}
+	\item Für welche Bilder kann ein korrektes Ergebnis erzielt werden? 
+	
+	Die beiden Eingangsbilder dürfen sich im Hintergrund nicht unterscheiden, und nur das Objekt, dessen zurückgelegte Distanz/Geschwindigkeit ermittelt werden soll darf sich bewegt haben. Weiters muss das Objekt sich über eine Distanz bewegt haben, sodass es sich, wenn man die beiden Bilder übereinander legt, in keinem Punkt berührt. Ansonsten kann es zu einer falschen Distanzberechnung kommen, da nicht die richtigen Objekte überprüft werden. Geprüft werden können die Objekte im sich öffnenden Fenster 'After Closing'.
+	\item Wird der Marker gefunden? 
+	
+	Der Marker muss in einem der beiden Eingangsbilder auffindbar sein. Liefert das Programm 'Inf' für Distanz und Geschwindigkeit, so ist zu überprüfen ob der (richtige) Marker gefunden wurde (im geöffneten Fenster 'Putatively Matched Points') und ob die Bounding Box richtig ermittelt wurde (im geöffneten Fenster 'Detected Box' ). Ist dies nicht der Fall, so ist möglicherweise ein besserer Marker zu wählen, oder ein schärferes Bild zu schießen.
+	\item Um wie viel weicht das Ergebnis vom korrekten Wert ab? 
+	
+	Die Abweichung lässt sich ermitteln, indem man die Differenz der gemessenen Distanz und die der errechneten ermitelt. Die von uns ermittelte Abweichung beträgt höchstens 10\% der gesamten ermittelten Distanz (siehe oben: Vorstellung der Datensätze und errechnete Distanzen).
+\end{itemize}
 
 %%------------------------------------------------------
 
