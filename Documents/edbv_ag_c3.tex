@@ -61,6 +61,36 @@ Wird der Marker gefunden? Der Marker muss in einem der beiden Eingangsbilder auf
 Um wie viel weicht das Ergebnis vom korrekten Wert ab? Die Abweichung lässt sich ermitteln, indem man die Differenz der gemessenen Distanz und die der errechneten ermitelt.
 
 \section{Datenbeispiel}
+Gültiger Input
+
+\begin{figure}[ht]
+	\centering
+	\includegraphics{testimg1.png}
+	\label{fig1}
+\end{figure}
+\begin{figure}[ht]
+	\centering
+	\includegraphics{testimg2.png}
+	\caption{Gültiger Input}
+	\label{fig2}
+\end{figure}
+Anhand des Markers wird das Verhältnis von einem Pixel zu einem Zentimeter festgelegt.
+Dieser ist nicht in beiden Bild zwingend notwendig, muss aber vorher eingelesen werden um ihn im Datensatz selbst wiederfinden zu können. In diesem Fall hat das schwarze Quadrat eine Seitenlänge von 8cm.
+Da beide Hintergründe gleich sind, werden die zwei Bilder subtrahiert und man erhält zwei mal die Person auf einem Bild (alte und neue Position). Nun kann die zurückgelegte Distanz ermittelt und anhand der Zeitangabe die Geschwindigkeit errechnet werden.
+
+Ungültiger Input
+
+\begin{figure}[ht]
+	\centering
+	\includegraphics{testimg1.png}
+	\label{fig3}
+\end{figure}
+\begin{figure}[ht]
+	\centering
+	\includegraphics{testimg2.png}
+	\caption{Gültiger Input}
+	\label{fig4}
+\end{figure}
 
 
 \section{Zeitplan}
