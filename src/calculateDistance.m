@@ -1,7 +1,7 @@
 function [averages, averages2, distInPx] = calculateDistance(A, B)
 
 C = (A - B) + (B - A);
-level = graythresh(C);
+level = otsuThreshold(C);
 
 bw = im2bw(C, level);
 SE = strel('square', 101);
