@@ -1,22 +1,25 @@
-function [averages, averages2, distInPx] = calculateDistance(A, B)
+function [averages, averages2, distInPx] = calculateDistance(A, B, SEType)
 
 C = (A - B) + (B - A);
 level = otsuThreshold(C);
 
 bw = im2bw(C, level);
-SE = strel('square', 101);
+elementSize = floor(min(size(bw,1),size(bw,2)) * 0.05);
+
+SE = strel(SEType, elementSize);
 [bw2] = dilation(bw,SE);
+%[bw2] = imdilate(bw,SE);
 [bw3] = erosion(bw2,SE);
-bw3 = myGetBiggestComponents(bw3);
+%[bw3] = imerode(bw2,SE);
+%bw3 = myGetBiggestComponents(bw3);
 
-figure('Name', 'myDilation'); imshow(bw3);
+figure('Name', 'After Closing'); imshow(bw3);
 %figure('Name', 'matlabDilation'); imshow(bw);
-%size(bw)
 
-averages = [0,0];
-averages2 = [0,0];
-ave = 0;
-ave2 = 0;
+%averages = [0,0];
+%averages2 = [0,0];
+%ave = 0;
+%ave2 = 0;
 
 [nc, cc] = CCL(bw3, @neighbour8);
 

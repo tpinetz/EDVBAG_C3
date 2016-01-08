@@ -6,7 +6,7 @@ function main()
     image1String = 'Assets/x2.jpg';
     image2String = 'Assets/x3.jpg';
 
-    [dist, speed] = radarFalle(markerString, inputImageString, image1String, image2String);
+    [dist, speed] = radarFalle(markerString, 388, 'square', inputImageString, image1String, image2String);
 
     fprintf('Distance is %f m.\n', dist);
     fprintf('Speed is %f m/s.\n', speed);
