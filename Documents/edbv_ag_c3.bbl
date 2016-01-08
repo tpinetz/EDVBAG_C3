@@ -11,6 +11,12 @@ Martin~A Fischler and Robert~C Bolles.
   applications to image analysis and automated cartography.
 \newblock {\em Communications of the ACM}, 24(6):381--395, 1981.
 
+\bibitem{haralick1987image}
+Robert~M Haralick, Stanley~R Sternberg, and Xinhua Zhuang.
+\newblock Image analysis using mathematical morphology.
+\newblock {\em Pattern Analysis and Machine Intelligence, IEEE Transactions
+  on}, (4):532--550, 1987.
+
 \bibitem{lowe2004distinctive}
 David~G Lowe.
 \newblock Distinctive image features from scale-invariant keypoints.
