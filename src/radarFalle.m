@@ -1,9 +1,10 @@
-function [dist, speed] = radarFalle(markerString, inputImageString, image1String ,image2String)
+function [dist, speed] = radarFalle(markerString, markerSize, inputImageString, image1String ,image2String)
 % Diese Funktion ist unsere Abgabe. Als Input wird der Marker die Distanz
 % und zwei Bilder erwartet. Daraus wird dann die Geschwindigkeit und die
 % Distanz berechnet. 
 
 % markerString.. Ort des Bildes vom Marker.
+% markerSize.. reelle Größe des Markers in mm.
 % inputImageString.. Ort des Bildes mit Marker zur Berechnung der Distanz.
 % image1String.. Ort des ersten Bildes der Geschwindigkeitsmessung.
 % sizeOfMarker.. Ort des zweiten Bildes der Geschwindigkeitsmesssung.
@@ -15,7 +16,7 @@ function [dist, speed] = radarFalle(markerString, inputImageString, image1String
     f = 7000 / size(inputImage,1); % We need larger images for SURF / RANSAC to run decently
 
     inputImage = imresize(inputImage,f);
-    sizeOfMarker = 388 * f;
+    sizeOfMarker = markerSize * f;
 
     originalImage = inputImage;
 
