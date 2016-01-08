@@ -7,6 +7,7 @@
 \usepackage{algorithm}
 \usepackage{graphicx}
 \usepackage{amsmath,amssymb}
+\usepackage{tabularx}
 \usepackage{subcaption}
 \captionsetup{compatibility=false}
 \usepackage{multirow}
@@ -64,21 +65,41 @@ Um wie viel weicht das Ergebnis vom korrekten Wert ab? Die Abweichung lässt sic
 
 \section{Zeitplan}
 
+\begin{center}
+	\begin{tabularx}{\textwidth}{ |X|X|X| }
+		\hline
+		Meilenstein & abgeschlossen am & Arbeitsaufwand in Stunden\\
+		\hline		
+		Marker im Originalbild erkennen & 11.11.2015 &	50 \\
+		\hline
+		Geschwindigkeit mit Matlab \newline funktionen berechnen & 25.11.2015 & 50\\ 
+		\hline
+		SIFT implementieren & 20.12.2015 & 180\\
+		\hline
+		Restliche Matlab funktionen
+		
+		 ausprogrammieren ( Filter, etc.) & 7.1.2016 & 20\\
+		\hline		
+		
+	\end{tabularx}
+\end{center}
+
+
 %%------------------------------------------------------
 
 %%------------------------------------------------------
 \section{Arbeitsteilung}
 
 \begin{center}
-	\begin{tabular}{ |l | c | }
+	\begin{tabularx} {\textwidth}{ |X | X | }
 		\hline
 		Name & Tätigkeiten\\
 		\hline
-		Thomas Pinetz & CCL Implementierung, Threshold von Otsu, Pixeldistanz Prototyp, Bericht Sektion Methodik \\
+		Thomas Pinetz & CCL Implementierung, Threshold von Otsu, \newline Pixeldistanz Prototyp, Bericht Sektion Methodik \\
 		\hline
 		Vorname2 Nachname2 & Matlab-Funktion C, Bericht Abschnitt D...\\
 		\hline
-	\end{tabular}
+	\end{tabularx}
 \end{center}
 
 %%------------------------------------------------------
