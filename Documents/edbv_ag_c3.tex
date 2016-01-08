@@ -6,9 +6,11 @@
 \usepackage{algorithmic}
 \usepackage{algorithm}
 \usepackage{graphicx}
+\usepackage{float}
 \usepackage{amsmath,amssymb}
 \usepackage{tabularx}
 \usepackage{subcaption}
+\usepackage{wrapfig}
 \captionsetup{compatibility=false}
 \usepackage{multirow}
 \usepackage{color}
@@ -60,55 +62,65 @@ Für welche Bilder kann ein korrektes Ergebnis erzielt werden? Die beiden Eingan
 Wird der Marker gefunden? Der Marker muss in einem der beiden Eingangsbilder auffindbar sein. Stimmt die händisch ermittelte Distanz nicht mit der errechneten überein, so ist durch Ausgabe der von SIFT gematchten Features zu überprüfen ob der (richtige) Marker gefunden wurde und möglicherweise ein besserer Marker zu wählen, oder ein schärferes Bild zu schießen.
 Um wie viel weicht das Ergebnis vom korrekten Wert ab? Die Abweichung lässt sich ermitteln, indem man die Differenz der gemessenen Distanz und die der errechneten ermitelt.
 
-\section{Datenbeispiel}
-Gültiger Input
 
-\begin{figure}[ht]
+\pagebreak
+
+
+\section{Datenbeispiel}
+Gültiger Input:
+
+\begin{figure}[H]
 	\centering
 	\includegraphics{testimg1.png}
 	\caption{Gültiger Input Bild 1}
 	\label{fig1}
 \end{figure}
-\begin{figure}[ht]
+
+\begin{figure}[H]
 	\centering
 	\includegraphics{testimg2.png}
 	\caption{Gültiger Input Bild 2}
 	\label{fig2}
 \end{figure}
+
+
 Anhand des Markers wird das Verhältnis von einem Pixel zu einem Zentimeter festgelegt.
 Dieser ist nicht in beiden Bild zwingend notwendig, muss aber vorher eingelesen werden um ihn im Datensatz selbst wiederfinden zu können. In diesem Fall hat das schwarze Quadrat eine Seitenlänge von 8cm.
 Da beide Hintergründe gleich sind, werden die zwei Bilder subtrahiert und man erhält zwei mal die Person auf einem Bild (alte und neue Position). Nun kann die zurückgelegte Distanz ermittelt und anhand der Zeitangabe die Geschwindigkeit errechnet werden.
 
 Ungültiger Input
 
-\begin{figure}[ht]
+\begin{figure}[H]
 	\centering
 	\includegraphics{ungueltig1.png}
 	\caption{Ungültiger Input Bild 1}
 	\label{fig3}
 \end{figure}
-\begin{figure}[ht]
+\begin{figure}[H]
 	\centering
 	\includegraphics{ungueltig2.png}
 	\caption{Ungültiger Input Bild 2}
 	\label{fig4}
 \end{figure}
+
 Beim Subtrahieren der beiden Bilder, werden zu viele Merkmale übrig bleiben was die Distanzberechnung wesentlich erschweren würde.
 
 Ungültiger Input mit motion blur
 
-\begin{figure}[ht]
+\begin{figure}[H]
 	\centering
 	\includegraphics{ungueltig3.png}
 	\caption{Ungültiger Input mit Motion Blur}
 	\label{fig5}
 \end{figure}
+
+
 In diesem Beispiel wird es schwer den Marker zu finden und das Pixel-Zentimeter Verhältnis zu ungenau.
 
 \section{Zeitplan}
 
 \begin{center}
-	\begin{table}
+	\begin{table}[htb]
 		\begin{tabularx}{\textwidth}{ |X|X|X| }
 			\hline
 			Meilenstein & abgeschlossen am & Arbeitsaufwand in Stunden\\
@@ -144,20 +156,18 @@ In diesem Beispiel wird es schwer den Marker zu finden und das Pixel-Zentimeter 
 \section{Arbeitsteilung}
 
 \begin{center}
-	\begin{table}
+	\begin{table}[htb]
 	\begin{tabularx} {\textwidth}{ |X | X | }
 		\hline
 		Name & Tätigkeiten\\
 		\hline
 		Thomas Pinetz & CCL Implementierung, Threshold von Otsu, \newline Pixeldistanz Prototyp, Bericht Sektion Methodik \\
 		\hline
-		Andreas Seiwaldstätter & MyGetBiggestComponents/MyAreaOpen Implementierung, \newline Bericht Sektion Evaluierung...\\
+		Andreas Seiwaldstätter & MyGetBiggestComponents/MyAreaOpen Implementierung, \newline Bericht Sektion Evaluierung\\
 		\hline
+		Elvis Dzafic & RANSAC, Implementierung Erosion und Dilation \newline Bericht Sektion Implementierung\\
 		\hline
-		Elvis Dzafic & RANSAC Implementierung,Erosion und Dilation Implementierung \newline Bericht Sektion Implementierung..\\
-		\hline
-		\hline
-		Vorname2 Nachname2 & Matlab-Funktion C, Bericht Abschnitt D...\\
+		Salmir Delalic & SURF Detection, Implementierung Erosion und Dilation \newline Bericht Sektion Implementierung\\
 		\hline
 	\end{tabularx}
 		\caption{Unsere Arbeitsteilung}
@@ -191,8 +201,7 @@ Nachdem man die beiden "Connected Components" gefunden hat, kann man sich daraus
 
 \section{Implementierung}
 
-Die erste Hürde war die sinnvolle und gleichmäßige Arbeitsaufteilung. Gruppen-intern wurde die oben vorgestellte Methodik so aufgeteilt, dass ein unabhängiges Implementieren  und Testen möglich ist. Nachdem das Projekt grob mit den vorhandenen MATLAB-Methoden realisiert wurde, hat jedes Mitglied seinen Teilbereich als eigene Funktion erstellt.\\
-
+Die erste Hürde war die sinnvolle und gleichmäßige Arbeitsaufteilung. Gruppen-intern wurde die oben vorgestellte Methodik so aufgeteilt, dass ein unabhängiges Implementieren  und Testen möglich ist. Nachdem das Projekt grob mit den vorhandenen MATLAB-Methoden realisiert wurde, hat jedes Mitglied seinen Teilbereich als eigene Funktion erstellt.\ 
 Eine Übersicht über die Kombination und Verwendung der Methoden ist aus Abbildung \ref{fig:implPipeline} ersichtlich. 
 
 \begin{figure}[h]
@@ -202,11 +211,11 @@ Eine Übersicht über die Kombination und Verwendung der Methoden ist aus Abbild
 \label{fig:implPipeline}
 \end{figure}
 
-Bei der Umsetzung wurde angenommen, dass der Benutzer die Größe des Markers kennt, ihn abfotografiert oder digital abrufbar hat und zwei Eingabebilder vom bewegten Objekt der Main-Funktion (Radarfalle) mitgibt. Das Programm springt nun in den linken Teil der Pipeline (DistanceToMarker) und berechnet anhand der angegebenen Größe des Markers, das Verhältnis zwischen einem Pixel und einem Millimeter. Anfangs war der Marker ein 8x8cm großes Schwarz-Weiß Bild, welches angenommen leicht wiederzufinden ist. Mit der Zeit hat sich herausgestellt, dass sich dieses Objekt nur bedingt als Marker eignet, da es das Rauschen der Kamera und diverse Hintergründe (Tapeten, Muster in Wänden, Bilder usw.) "matched".\\
-Mit steigender Zahl der Testbilder wurde auch das RANSEC als zu ungenau befunden was in den nachfolgenden Abschnitten als Ungenauigkeits-Faktor beschrieben wird.\\
+Bei der Umsetzung wurde angenommen, dass der Benutzer die Größe des Markers kennt, ihn abfotografiert oder digital abrufbar hat und zwei Eingabebilder vom bewegten Objekt der Main-Funktion (Radarfalle) mitgibt. Das Programm springt nun in den linken Teil der Pipeline (DistanceToMarker) und berechnet anhand der angegebenen Größe des Markers, das Verhältnis zwischen einem Pixel und einem Millimeter. Anfangs war der Marker ein 8x8cm großes Schwarz-Weiß Bild, welches angenommen leicht wiederzufinden ist. Mit der Zeit hat sich herausgestellt, dass sich dieses Objekt nur bedingt als Marker eignet, da es das Rauschen der Kamera und diverse Hintergründe (Tapeten, Muster in Wänden, Bilder usw.) "matched".\
+Mit steigender Zahl der Testbilder wurde auch das RANSEC als zu ungenau befunden was in den nachfolgenden Abschnitten als Ungenauigkeits-Faktor beschrieben wird.\
 
-Sobald die SURF Detection ihre Aufgabe erledigt hat, springt unser Programm in die rechte Seite, wo nun die Aufbereitung der bewegten Objekte und die zurückgelegte Distanz (in Pixel) ermittelt wird.\\
-Während der Umsetzung, hat sich ergeben, dass eine gewisse Größe des Strukturelements gegeben sein muss, um ein zielführendes Closing ausführen zu können. Die Größe wurde von uns auf 5\% des Bildes definiert und hat laufzeit- und qualitätsspezifisch die besten Ergebnisse geliefert. Wir haben uns darauf geeinigt, dass der Benutzer selbst auswählen kann, welche Form des Strukturelements verwendet werden soll. Der eigens implementierte Schnellwertfilter bereitet uns nun das Bild, welches aus der Subtraktion der beiden Eingabebilder des bewegten Objekts besteht, für die folgenden morphologischen Operationen vor. Durch Dilation und Erosion werden Lücken (welche durch die Subtraktion entstanden sind und vom Threshold auf 0 gesetzt wurden) ausgefüllt um eine Grundlage für das Connected-Component Labeling liefern zu können. Bevor das Closing ausgeführt wird, werden alle Objekte durch CCL und Erosion ausgefiltert, die nicht zu dem bewegten Objekt gehören.\\
+Sobald die SURF Detection ihre Aufgabe erledigt hat, springt unser Programm in die rechte Seite, wo nun die Aufbereitung der bewegten Objekte und die zurückgelegte Distanz (in Pixel) ermittelt wird.\ 
+Während der Umsetzung, hat sich ergeben, dass eine gewisse Größe des Strukturelements gegeben sein muss, um ein zielführendes Closing ausführen zu können. Die Größe wurde von uns auf 5\% des Bildes definiert und hat laufzeit- und qualitätsspezifisch die besten Ergebnisse geliefert. Wir haben uns darauf geeinigt, dass der Benutzer selbst auswählen kann, welche Form des Strukturelements verwendet werden soll. Der eigens implementierte Schnellwertfilter bereitet uns nun das Bild, welches aus der Subtraktion der beiden Eingabebilder des bewegten Objekts besteht, für die folgenden morphologischen Operationen vor. Durch Dilation und Erosion werden Lücken (welche durch die Subtraktion entstanden sind und vom Threshold auf 0 gesetzt wurden) ausgefüllt um eine Grundlage für das Connected-Component Labeling liefern zu können. Bevor das Closing ausgeführt wird, werden alle Objekte durch CCL und Erosion ausgefiltert, die nicht zu dem bewegten Objekt gehören.\
 
 Im Anschluss werden die Zentren der Bounding-Boxen ermittelt und die Differenz als zurückgelegte Distanz ausgegeben, um mit der Kalkulation der zurückgelegten Distanz im metrischen System und der Geschwindigkeit forfahren zu können.
 
