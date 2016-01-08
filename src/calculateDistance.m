@@ -11,7 +11,8 @@ SE = strel(SEType, elementSize);
 %[bw2] = imdilate(bw,SE);
 [bw3] = erosion(bw2,SE);
 %[bw3] = imerode(bw2,SE);
-%bw3 = myGetBiggestComponents(bw3);
+
+[bw3, cc] = myGetBiggestComponents(bw3);
 
 figure('Name', 'After Closing'); imshow(bw3);
 %figure('Name', 'matlabDilation'); imshow(bw);
@@ -21,7 +22,7 @@ figure('Name', 'After Closing'); imshow(bw3);
 %ave = 0;
 %ave2 = 0;
 
-[nc, cc] = CCL(bw3, @neighbour8);
+%[nc, cc] = CCL(bw3, @neighbour8);
 
 minx = 999999;
 maxx = 0;
