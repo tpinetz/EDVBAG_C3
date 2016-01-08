@@ -190,20 +190,10 @@ Nachdem man die beiden "Connected Components" gefunden hat, kann man sich daraus
 
 
 \section{Implementierung}
-(1-X Seiten)\\
-Hier gebt ihr einen Überblick über eure Implementierung:\\
-Wie habt ihr die im vorhergehenden Abschnitt vorgestellte Methodik praktisch umgesetzt? Wie werden die einzelnen Methoden kombiniert (zB. Implementierungspipeline)?\\
-Hier ist Platz für Implementierungsdetails wie zB. gewählte Parameter. \\
-Wie startet der User das Programm? Welche Parameter hat der User zu setzen?\\
-Auch in diesem Abschnitt können Referenzen und Zitate notwendig sein.\\
 
-Hier gebt ihr einen Überblick über eure Implementierung:\\
-Wie habt ihr die im vorhergehenden Abschnitt vorgestellte Methodik praktisch umgesetzt? Wie werden die einzelnen Methoden kombiniert (zB. Implementierungspipeline)?
-Hier ist Platz für Implementierungsdetails wie zB. gewählte Parameter.
-Wie startet der User das Programm? Welche Parameter hat der User zu setzen?
-Auch in diesem Abschnitt können Referenzen und Zitate notwendig sein.\\
+Die erste Hürde war die sinnvolle und gleichmäßige Arbeitsaufteilung. Gruppen-intern wurde die oben vorgestellte Methodik so aufgeteilt, dass ein unabhängiges Implementieren  und Testen möglich ist. Nachdem das Projekt grob mit den vorhandenen MATLAB-Methoden realisiert wurde, hat jedes Mitglied seinen Teilbereich als eigene Funktion erstellt.\\
 
-Die erste Hürde war die sinnvolle und gleichmäßige Arbeitsaufteilung. Gruppen-intern wurde die Methodik Figure \ref{fig:implPipeline}
+Eine Übersicht über die Kombination und Verwendung der Methoden ist aus Abbildung \ref{fig:implPipeline} ersichtlich. 
 
 \begin{figure}[h]
 \centering
@@ -211,6 +201,15 @@ Die erste Hürde war die sinnvolle und gleichmäßige Arbeitsaufteilung. Gruppen
 \caption{Implementierungs-Pipeline}
 \label{fig:implPipeline}
 \end{figure}
+
+Bei der Umsetzung wurde angenommen, dass der Benutzer die Größe des Markers kennt, ihn abfotografiert oder digital abrufbar hat und zwei Eingabebilder vom bewegten Objekt der Main-Funktion (Radarfalle) mitgibt. Das Programm springt nun in den linken Teil der Pipeline (DistanceToMarker) und berechnet anhand der angegebenen Größe des Markers, das Verhältnis zwischen einem Pixel und einem Millimeter. Anfangs war der Marker ein 8x8cm großes Schwarz-Weiß Bild, welches angenommen leicht wiederzufinden ist. Mit der Zeit hat sich herausgestellt, dass sich dieses Objekt nur bedingt als Marker eignet, da es das Rauschen der Kamera und diverse Hintergründe (Tapeten, Muster in Wänden, Bilder usw.) "matched".\\
+Mit steigender Zahl der Testbilder wurde auch das RANSEC als zu ungenau befunden was in den nachfolgenden Abschnitten als Ungenauigkeits-Faktor beschrieben wird.\\
+
+Sobald die SURF Detection ihre Aufgabe erledigt hat, springt unser Programm in die rechte Seite, wo nun die Aufbereitung der bewegten Objekte und die zurückgelegte Distanz (in Pixel) ermittelt wird.\\
+Während der Umsetzung, hat sich ergeben, dass eine gewisse Größe des Strukturelements gegeben sein muss, um ein zielführendes Closing ausführen zu können. Die Größe wurde von uns auf 5\% des Bildes definiert und hat laufzeit- und qualitätsspezifisch die besten Ergebnisse geliefert. Wir haben uns darauf geeinigt, dass der Benutzer selbst auswählen kann, welche Form des Strukturelements verwendet werden soll. Der eigens implementierte Schnellwertfilter bereitet uns nun das Bild, welches aus der Subtraktion der beiden Eingabebilder des bewegten Objekts besteht, für die folgenden morphologischen Operationen vor. Durch Dilation und Erosion werden Lücken (welche durch die Subtraktion entstanden sind und vom Threshold auf 0 gesetzt wurden) ausgefüllt um eine Grundlage für das Connected-Component Labeling liefern zu können. Bevor das Closing ausgeführt wird, werden alle Objekte durch CCL und Erosion ausgefiltert, die nicht zu dem bewegten Objekt gehören.\\
+
+Im Anschluss werden die Zentren der Bounding-Boxen ermittelt und die Differenz als zurückgelegte Distanz ausgegeben, um mit der Kalkulation der zurückgelegten Distanz im metrischen System und der Geschwindigkeit forfahren zu können.
+
 
 %%------------------------------------------------------
 
