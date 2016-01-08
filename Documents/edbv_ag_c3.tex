@@ -169,7 +169,7 @@ Der zweite Datensatz, für den die Radarfalle ein richtiges Ergebnis zurücklief
 	\item ../Assets/f1.jpg bzw. ..Assets/f1b.jpg als Bild in dem der Marker gesucht wird
 	\item ../Assets/f2.jpg und ../Assets/f3.jpg als Bilder, in denen die Distanz gemessen wird
 \end{itemize}
-Der errechnete, zurückgelieferte Wert entspricht einer Distanz von 1,25m was der tatsächlichen Distanz erneut sehr nahe kommt (Vergleich: etwas mehr als 4 Fliesen á 30cm liegen zwischen Anfangs- und Endposition). Die Bilder haben eine Größe von 5mp, was, im Vergleich zu Datensatz1, zu einer merkbar längeren Berechnungszeit führt. Es wird auch ein korrektes Ergebnis zurückgeliefert, wählt man f1b.jpg als Bild in dem der Marker gesucht wird, wobei kleinere Schwankungen des Ergebnisses immer möglich sind, da der verwendete RANSEC Algorithmus zur Berechnung der Bounding Box des Markers eine Funktion ist, die mit zufälligen Werten arbeitet.
+Der errechnete, zurückgelieferte Wert entspricht einer Distanz von 1,25m was der tatsächlichen Distanz erneut sehr nahe kommt (Vergleich: etwas mehr als 4 Fliesen á 30cm liegen zwischen Anfangs- und Endposition). Die Bilder haben eine Größe von 5mp, was, im Vergleich zu Datensatz1, zu einer merkbar längeren Berechnungszeit führt. Es wird auch ein korrektes Ergebnis zurückgeliefert, wählt man f1b.jpg als Bild in dem der Marker gesucht wird, wobei kleinere Schwankungen des Ergebnisses immer möglich sind, da der verwendete RANSAC Algorithmus zur Berechnung der Bounding Box des Markers eine Funktion ist, die mit zufälligen Werten arbeitet.
 
 Der folgende Datensatz funktioniert zwar, benötigt jedoch viel Zeit zur Berechnung, da die Eingabebilder eine Größe von 8mp haben. Wir empfehlen daher nur Bilder der Größe 2mp zu verwenden:
 \begin{itemize}
