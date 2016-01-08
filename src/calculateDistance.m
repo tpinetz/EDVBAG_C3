@@ -5,9 +5,11 @@ level = otsuThreshold(C);
 
 bw = im2bw(C, level);
 SE = strel('square', 101);
+%[bw2] = erosion(bw,SE);
+%[bw3] = dilation(bw2,SE);
 [bw2] = dilation(bw,SE);
 [bw3] = erosion(bw2,SE);
-bw3 = myGetBiggestComponents(bw3);
+[bw3, cc] = myGetBiggestComponents(bw3);
 
 figure('Name', 'myDilation'); imshow(bw3);
 %figure('Name', 'matlabDilation'); imshow(bw);
@@ -18,7 +20,7 @@ averages2 = [0,0];
 ave = 0;
 ave2 = 0;
 
-[nc, cc] = CCL(bw3, @neighbour8);
+%[nc, cc] = CCL(bw3, @neighbour8);
 
 minx = 999999;
 maxx = 0;
