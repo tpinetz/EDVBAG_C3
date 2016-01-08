@@ -5,6 +5,7 @@ function [dist, speed] = radarFalle(markerString, markerSize, strelType, inputIm
 
 % markerString.. Ort des Bildes vom Marker.
 % markerSize.. reelle Größe des Markers in mm.
+% strelType.. Die Art des Strukturelement (Raute, Square, Diamond)
 % inputImageString.. Ort des Bildes mit Marker zur Berechnung der Distanz.
 % image1String.. Ort des ersten Bildes der Geschwindigkeitsmessung.
 % sizeOfMarker.. Ort des zweiten Bildes der Geschwindigkeitsmesssung.
