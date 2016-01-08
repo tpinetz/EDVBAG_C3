@@ -16,6 +16,11 @@ David~G Lowe.
 \newblock Distinctive image features from scale-invariant keypoints.
 \newblock {\em International journal of computer vision}, 60(2):91--110, 2004.
 
+\bibitem{otsu1975threshold}
+Nobuyuki Otsu.
+\newblock A threshold selection method from gray-level histograms.
+\newblock {\em Automatica}, 11(285-296):23--27, 1975.
+
 \bibitem{rublee2011orb}
 Ethan Rublee, Vincent Rabaud, Kurt Konolige, and Gary Bradski.
 \newblock Orb: an efficient alternative to sift or surf.
